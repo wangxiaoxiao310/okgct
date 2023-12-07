@@ -1,0 +1,21 @@
+match
+ (m1: operator {full_name: "torch.Tensor.scatter", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.Tensor.scatter", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.Tensor.scatter", name: "dim", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.Tensor.scatter", name: "axis", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.Tensor.scatter", operator_name_second: "mindspore.Tensor.scatter", parameter_name_first : "dim", parameter_name_second : "axis"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.Tensor.scatter", name: "index", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.Tensor.scatter", name: "index", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.Tensor.scatter", operator_name_second: "mindspore.Tensor.scatter", parameter_name_first : "index", parameter_name_second : "index"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.Tensor.scatter", name: "src", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.Tensor.scatter", name: "src", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.Tensor.scatter", operator_name_second: "mindspore.Tensor.scatter", parameter_name_first : "src", parameter_name_second : "src"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.Tensor.scatter", return_order: 1, version: "1.8.1"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.Tensor.scatter", return_order: 1, version: "2.0"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.Tensor.scatter", operator_name_second: "mindspore.Tensor.scatter", return_order_first : 1, return_order_second : 1}]-> (m2);

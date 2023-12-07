@@ -1,0 +1,14 @@
+matplotlib
+numpy
+opencv-python
+Pillow
+py2neo
+PyYAML
+torch
+torchsummary
+torchvision
+tqdm
+mindspore
+random
+einops
+math

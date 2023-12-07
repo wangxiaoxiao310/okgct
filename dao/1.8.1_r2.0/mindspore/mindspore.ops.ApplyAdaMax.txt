@@ -1,0 +1,65 @@
+merge (: framework {name: "mindspore", version: "2.0"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "2.0"});
+match
+ (m1: framework {name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "2.0"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: module {framework: "mindspore", name: "ops", version: "2.0"});
+match
+ (m1: module {framework: "mindspore", name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "ops", version: "2.0"})
+merge (m1) -[: subClassOfClass {name: "ops"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "ApplyAdaMax", full_name: "mindspore.ops.ApplyAdaMax", version: "2.0"});
+match
+ (m3: module {framework: "mindspore", name: "ops", version: "2.0"}),
+ (m4: operator {framework: "mindspore", name: "ApplyAdaMax", full_name: "mindspore.ops.ApplyAdaMax", version: "2.0"})
+merge (m3) -[: operatorOfClass {name: "ApplyAdaMax"}]-> (m4);
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", input_order: 1, name: "var", dtype_num: 1, dtype: "Parameter", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", dtype_order: 1, inputs_order: 1, name: "var_1", dtype : "Parameter", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", input_order: 2, name: "m", dtype_num: 1, dtype: "Parameter", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", dtype_order: 1, inputs_order: 2, name: "m_1", dtype : "Parameter", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", input_order: 3, name: "v", dtype_num: 1, dtype: "Parameter", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", dtype_order: 1, inputs_order: 3, name: "v_1", dtype : "Parameter", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", input_order: 4, name: "beta1_power", dtype_num: 1, dtype: "Union[Number, Tensor]", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", dtype_order: 1, inputs_order: 4, name: "beta1_power_1", dtype : "Union[Number, Tensor]", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", input_order: 5, name: "lr", dtype_num: 1, dtype: "Union[Number, Tensor]", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", dtype_order: 1, inputs_order: 5, name: "lr_1", dtype : "Union[Number, Tensor]", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", input_order: 6, name: "beta1", dtype_num: 1, dtype: "Union[Number, Tensor]", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", dtype_order: 1, inputs_order: 6, name: "beta1_1", dtype : "Union[Number, Tensor]", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", input_order: 7, name: "beta2", dtype_num: 1, dtype: "Union[Number, Tensor]", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", dtype_order: 1, inputs_order: 7, name: "beta2_1", dtype : "Union[Number, Tensor]", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", input_order: 8, name: "epsilon", dtype_num: 1, dtype: "Union[Number, Tensor]", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", dtype_order: 1, inputs_order: 8, name: "epsilon_1", dtype : "Union[Number, Tensor]", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", input_order: 9, name: "grad", dtype_num: 1, dtype: "Tensor", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", dtype_order: 1, inputs_order: 9, name: "grad_1", dtype : "Tensor", default : "['']"});
+merge (: return {framework: "mindspore", version: "2.0", operator: "mindspore.ops.ApplyAdaMax", return_order: 1, name: "return", dtype: 0});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.ApplyAdaMax", version: "2.0"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.ops.ApplyAdaMax' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.ApplyAdaMax", version: "2.0"}),
+ (n11: input)
+where n11.operator = 'mindspore.ops.ApplyAdaMax' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: inputOfOperator {input_order: n11.input_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.ApplyAdaMax", version: "2.0"}),
+ (n11: return)
+where n11.operator = 'mindspore.ops.ApplyAdaMax' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "2.0"}),
+ (n11: childParameter {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.ops.ApplyAdaMax' and m11.operator='mindspore.ops.ApplyAdaMax' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: input {framework: "mindspore", version: "2.0"}),
+ (n11: childInput {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.ops.ApplyAdaMax' and m11.operator='mindspore.ops.ApplyAdaMax' and n11.input_order=m11.input_order
+merge (m11) -[: oneOfInput {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "2.0"}),
+ (n11: childReturn {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.ops.ApplyAdaMax' and m11.operator='mindspore.ops.ApplyAdaMax' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

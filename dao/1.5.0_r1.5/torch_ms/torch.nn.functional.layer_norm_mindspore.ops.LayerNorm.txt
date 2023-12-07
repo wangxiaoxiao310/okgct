@@ -1,0 +1,5 @@
+match
+ (m1: operator {full_name: "torch.nn.functional.layer_norm", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.ops.LayerNorm", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "true"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "true"}]-> (m1);

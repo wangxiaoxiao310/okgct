@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.promote_types", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.numpy.promote_types", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.promote_types", name: "type1", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.numpy.promote_types", name: "type1", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.promote_types", operator_name_second: "mindspore.numpy.promote_types", parameter_name_first : "type1", parameter_name_second : "type1"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.promote_types", name: "type2", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.numpy.promote_types", name: "type2", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.promote_types", operator_name_second: "mindspore.numpy.promote_types", parameter_name_first : "type2", parameter_name_second : "type2"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.promote_types", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.numpy.promote_types", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.promote_types", operator_name_second: "mindspore.numpy.promote_types", return_order_first : 1, return_order_second : 1}]-> (m2);

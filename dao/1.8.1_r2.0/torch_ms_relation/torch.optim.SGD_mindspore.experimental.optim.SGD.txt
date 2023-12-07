@@ -1,0 +1,21 @@
+match
+ (m1: operator {full_name: "torch.optim.SGD", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.experimental.optim.SGD", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.optim.SGD", name: "params", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.experimental.optim.SGD", name: "params", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.optim.SGD", operator_name_second: "mindspore.experimental.optim.SGD", parameter_name_first : "params", parameter_name_second : "params"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.optim.SGD", name: "lr", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.experimental.optim.SGD", name: "lr", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.optim.SGD", operator_name_second: "mindspore.experimental.optim.SGD", parameter_name_first : "lr", parameter_name_second : "learning_rate"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.optim.SGD", name: "momentum", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.experimental.optim.SGD", name: "momentum", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.optim.SGD", operator_name_second: "mindspore.experimental.optim.SGD", parameter_name_first : "momentum", parameter_name_second : "momentum"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.optim.SGD", name: "weight_decay", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.experimental.optim.SGD", name: "weight_decay", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.optim.SGD", operator_name_second: "mindspore.experimental.optim.SGD", parameter_name_first : "weight_decay", parameter_name_second : "weight_decay"}]-> (m2);

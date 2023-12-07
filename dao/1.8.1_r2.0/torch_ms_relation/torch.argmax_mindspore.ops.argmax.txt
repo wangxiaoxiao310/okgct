@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torch.argmax", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.ops.argmax", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.argmax", name: "input", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.argmax", name: "input", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.argmax", operator_name_second: "mindspore.ops.argmax", parameter_name_first : "input", parameter_name_second : "input"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.argmax", name: "keepdim", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.argmax", name: "keepdim", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.argmax", operator_name_second: "mindspore.ops.argmax", parameter_name_first : "keepdim", parameter_name_second : "keepdim"}]-> (m2);

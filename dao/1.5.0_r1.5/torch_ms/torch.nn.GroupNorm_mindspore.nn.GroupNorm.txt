@@ -1,0 +1,21 @@
+match
+ (m1: operator {full_name: "torch.nn.GroupNorm", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.nn.GroupNorm", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.GroupNorm", name: "num_groups", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.GroupNorm", name: "num_groups", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.GroupNorm", operator_name_second: "mindspore.nn.GroupNorm", parameter_name_first : "num_groups", parameter_name_second : "num_groups"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.GroupNorm", name: "num_channels", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.GroupNorm", name: "num_channels", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.GroupNorm", operator_name_second: "mindspore.nn.GroupNorm", parameter_name_first : "num_channels", parameter_name_second : "num_channels"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.GroupNorm", name: "eps", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.GroupNorm", name: "eps", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.GroupNorm", operator_name_second: "mindspore.nn.GroupNorm", parameter_name_first : "eps", parameter_name_second : "eps"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.GroupNorm", name: "affine", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.GroupNorm", name: "affine", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.GroupNorm", operator_name_second: "mindspore.nn.GroupNorm", parameter_name_first : "affine", parameter_name_second : "affine"}]-> (m2);

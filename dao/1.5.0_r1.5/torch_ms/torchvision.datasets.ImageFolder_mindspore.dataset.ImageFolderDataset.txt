@@ -1,0 +1,9 @@
+match
+ (m1: operator {full_name: "torchvision.datasets.ImageFolder", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.dataset.ImageFolderDataset", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torchvision.datasets.ImageFolder", name: "root", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.dataset.ImageFolderDataset", name: "dataset_dir", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.datasets.ImageFolder", operator_name_second: "mindspore.dataset.ImageFolderDataset", parameter_name_first : "root", parameter_name_second : "dataset_dir"}]-> (m2);

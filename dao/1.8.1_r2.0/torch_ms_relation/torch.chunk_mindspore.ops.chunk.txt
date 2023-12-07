@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.chunk", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.ops.chunk", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.chunk", name: "input", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.chunk", name: "input", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.chunk", operator_name_second: "mindspore.ops.chunk", parameter_name_first : "input", parameter_name_second : "input"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.chunk", name: "chunks", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.chunk", name: "chunks", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.chunk", operator_name_second: "mindspore.ops.chunk", parameter_name_first : "chunks", parameter_name_second : "chunks"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.chunk", name: "dim", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.chunk", name: "axis", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.chunk", operator_name_second: "mindspore.ops.chunk", parameter_name_first : "dim", parameter_name_second : "axis"}]-> (m2);

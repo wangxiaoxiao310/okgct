@@ -1,0 +1,10 @@
+match
+ (m1: operator {full_name: "torch.empty", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.numpy.empty", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.empty", name: "size", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.numpy.empty", name: "shape", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.empty", operator_name_second: "mindspore.numpy.empty", parameter_name_first : "size", parameter_name_second : "shape"}]-> (m2);
+

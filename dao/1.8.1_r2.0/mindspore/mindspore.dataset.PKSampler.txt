@@ -1,0 +1,57 @@
+merge (: framework {name: "mindspore", version: "2.0"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "2.0"});
+match
+ (m1: framework {name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "2.0"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: module {framework: "mindspore", name: "dataset", version: "2.0"});
+match
+ (m1: module {framework: "mindspore", name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "dataset", version: "2.0"})
+merge (m1) -[: subClassOfClass {name: "dataset"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "PKSampler", full_name: "mindspore.dataset.PKSampler", version: "2.0"});
+match
+ (m3: module {framework: "mindspore", name: "dataset", version: "2.0"}),
+ (m4: operator {framework: "mindspore", name: "PKSampler", full_name: "mindspore.dataset.PKSampler", version: "2.0"})
+merge (m3) -[: operatorOfClass {name: "PKSampler"}]-> (m4);
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", parameter_order: 1, name: "num_val", dtype_num: 1, dtype: "int", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", dtype_order: 1, parameter_order: 1, name: "num_val_1", dtype : "int", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", parameter_order: 2, name: "num_class", dtype_num: 1, dtype: "int", optional: "True", default: "为None，采样所有类"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", dtype_order: 1, parameter_order: 2, name: "num_class_1", dtype : "int", default : "为None，采样所有类"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", parameter_order: 3, name: "shuffle", dtype_num: 1, dtype: "bool", optional: "True", default: "False，不混洗样本"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", dtype_order: 1, parameter_order: 3, name: "shuffle_1", dtype : "bool", default : "False，不混洗样本"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", parameter_order: 4, name: "class_column", dtype_num: 1, dtype: "str", optional: "True", default: "label"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", dtype_order: 1, parameter_order: 4, name: "class_column_1", dtype : "str", default : "label"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", parameter_order: 5, name: "num_samples", dtype_num: 1, dtype: "int", optional: "True", default: "None，获取采样到的所有样本"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", dtype_order: 1, parameter_order: 5, name: "num_samples_1", dtype : "int", default : "None，获取采样到的所有样本"});
+merge (: return {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.PKSampler", return_order: 1, name: "return", dtype: 0});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.dataset.PKSampler", version: "2.0"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.dataset.PKSampler' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.dataset.PKSampler", version: "2.0"}),
+ (n11: input)
+where n11.operator = 'mindspore.dataset.PKSampler' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: inputOfOperator {input_order: n11.input_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.dataset.PKSampler", version: "2.0"}),
+ (n11: return)
+where n11.operator = 'mindspore.dataset.PKSampler' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "2.0"}),
+ (n11: childParameter {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.dataset.PKSampler' and m11.operator='mindspore.dataset.PKSampler' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: input {framework: "mindspore", version: "2.0"}),
+ (n11: childInput {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.dataset.PKSampler' and m11.operator='mindspore.dataset.PKSampler' and n11.input_order=m11.input_order
+merge (m11) -[: oneOfInput {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "2.0"}),
+ (n11: childReturn {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.dataset.PKSampler' and m11.operator='mindspore.dataset.PKSampler' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

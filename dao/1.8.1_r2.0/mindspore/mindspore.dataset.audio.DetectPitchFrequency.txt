@@ -1,0 +1,62 @@
+merge (: framework {name: "mindspore", version: "2.0"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "2.0"});
+match
+ (m1: framework {name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "2.0"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: module {framework: "mindspore", name: "dataset", version: "2.0"});
+match
+ (m1: module {framework: "mindspore", name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "dataset", version: "2.0"})
+merge (m1) -[: subClassOfClass {name: "dataset"}]-> (m2);
+merge (: module {framework: "mindspore", name: "audio", version: "2.0"});
+match
+ (m1: module {framework: "mindspore", name: "dataset", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "audio", version: "2.0"})
+merge (m1) -[: subClassOfClass {name: "audio"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "DetectPitchFrequency", full_name: "mindspore.dataset.audio.DetectPitchFrequency", version: "2.0"});
+match
+ (m3: module {framework: "mindspore", name: "audio", version: "2.0"}),
+ (m4: operator {framework: "mindspore", name: "DetectPitchFrequency", full_name: "mindspore.dataset.audio.DetectPitchFrequency", version: "2.0"})
+merge (m3) -[: operatorOfClass {name: "DetectPitchFrequency"}]-> (m4);
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", parameter_order: 1, name: "sample_rate", dtype_num: 1, dtype: "int", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", dtype_order: 1, parameter_order: 1, name: "sample_rate_1", dtype : "int", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", parameter_order: 2, name: "frame_time", dtype_num: 1, dtype: "float", optional: "True", default: "0.01"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", dtype_order: 1, parameter_order: 2, name: "frame_time_1", dtype : "float", default : "0.01"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", parameter_order: 3, name: "win_length", dtype_num: 1, dtype: "int", optional: "True", default: "30"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", dtype_order: 1, parameter_order: 3, name: "win_length_1", dtype : "int", default : "30"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", parameter_order: 4, name: "freq_low", dtype_num: 1, dtype: "int", optional: "True", default: "85"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", dtype_order: 1, parameter_order: 4, name: "freq_low_1", dtype : "int", default : "85"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", parameter_order: 5, name: "freq_high", dtype_num: 1, dtype: "int", optional: "True", default: "3400"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", dtype_order: 1, parameter_order: 5, name: "freq_high_1", dtype : "int", default : "3400"});
+merge (: return {framework: "mindspore", version: "2.0", operator: "mindspore.dataset.audio.DetectPitchFrequency", return_order: 1, name: "return", dtype: 0});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.dataset.audio.DetectPitchFrequency", version: "2.0"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.dataset.audio.DetectPitchFrequency' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.dataset.audio.DetectPitchFrequency", version: "2.0"}),
+ (n11: input)
+where n11.operator = 'mindspore.dataset.audio.DetectPitchFrequency' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: inputOfOperator {input_order: n11.input_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.dataset.audio.DetectPitchFrequency", version: "2.0"}),
+ (n11: return)
+where n11.operator = 'mindspore.dataset.audio.DetectPitchFrequency' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "2.0"}),
+ (n11: childParameter {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.dataset.audio.DetectPitchFrequency' and m11.operator='mindspore.dataset.audio.DetectPitchFrequency' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: input {framework: "mindspore", version: "2.0"}),
+ (n11: childInput {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.dataset.audio.DetectPitchFrequency' and m11.operator='mindspore.dataset.audio.DetectPitchFrequency' and n11.input_order=m11.input_order
+merge (m11) -[: oneOfInput {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "2.0"}),
+ (n11: childReturn {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.dataset.audio.DetectPitchFrequency' and m11.operator='mindspore.dataset.audio.DetectPitchFrequency' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

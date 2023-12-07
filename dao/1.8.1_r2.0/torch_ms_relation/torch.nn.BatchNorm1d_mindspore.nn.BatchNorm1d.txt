@@ -1,0 +1,9 @@
+match
+ (m1: operator {full_name: "torch.nn.BatchNorm1d", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.nn.BatchNorm1d", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.BatchNorm1d", name: "input", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.BatchNorm1d", name: "x", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.BatchNorm1d", operator_name_second: "mindspore.nn.BatchNorm1d", parameter_name_first : "input", parameter_name_second : "x"}]-> (m2);

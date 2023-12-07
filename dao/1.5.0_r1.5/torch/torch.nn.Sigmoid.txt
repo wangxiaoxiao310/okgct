@@ -1,0 +1,38 @@
+merge (: framework {name: "pytorch", version: "1.5.0"});
+merge (: module {framework: "pytorch", name: "torch", version: "1.5.0"});
+match
+ (m1: framework {name: "pytorch", version: "1.5.0"}),
+ (m2: module {framework: "pytorch", name: "torch", version: "1.5.0"})
+merge (m1) -[: classOfFramework {name: "torch"}]-> (m2);
+merge (: module {framework: "pytorch", name: "nn", version: "1.5.0"});
+match
+ (m1: module {framework: "pytorch", name: "torch", version: "1.5.0"}),
+ (m2: module {framework: "pytorch", name: "nn", version: "1.5.0"})
+merge (m1) -[: subClassOfClass {name: "nn"}]-> (m2);
+merge (: operator {framework: "pytorch", name: "Sigmoid", full_name: "torch.nn.Sigmoid", version: "1.5.0"});
+match
+ (m3: module {framework: "pytorch", name: "nn", version: "1.5.0"}),
+ (m4: operator {framework: "pytorch", name: "Sigmoid", full_name: "torch.nn.Sigmoid", version: "1.5.0"})
+merge (m3) -[: operatorOfClass {name: "Sigmoid"}]-> (m4);
+merge (: return {framework: "pytorch", version: "1.5.0", operator: "torch.nn.Sigmoid", return_order: 1, name: "return", dtype: 1});
+merge (: childReturn {framework: "pytorch", version: "1.5.0", operator: "torch.nn.Sigmoid", dtype_order: 1, return_order: 1, name: "return_1", dtype: "Tensor"});
+match
+ (m11: operator {framework: "pytorch", full_name: "torch.nn.Sigmoid", version: "1.5.0"}),
+ (n11: parameter)
+where n11.operator = 'torch.nn.Sigmoid' and n11.framework = 'pytorch' and n11.version = '1.5.0'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "pytorch", full_name: "torch.nn.Sigmoid", version: "1.5.0"}),
+ (n11: return)
+where n11.operator = 'torch.nn.Sigmoid' and n11.framework = 'pytorch' and n11.version = '1.5.0'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "pytorch", version: "1.5.0"}),
+ (n11: childParameter {framework: "pytorch", version: "1.5.0"})
+where n11.operator = 'torch.nn.Sigmoid' and m11.operator='torch.nn.Sigmoid' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "pytorch", version: "1.5.0"}),
+ (n11: childReturn {framework: "pytorch", version: "1.5.0"})
+where n11.operator = 'torch.nn.Sigmoid' and m11.operator='torch.nn.Sigmoid' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

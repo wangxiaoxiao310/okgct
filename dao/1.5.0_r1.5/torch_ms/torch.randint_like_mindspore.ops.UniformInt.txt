@@ -1,0 +1,21 @@
+match
+ (m1: operator {full_name: "torch.randint_like", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.ops.UniformInt", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "true"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "true"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.randint_like", name: "input", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.UniformInt", name: "shape", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.randint_like", operator_name_second: "mindspore.ops.UniformInt", parameter_name_first : "input", parameter_name_second : "shape"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.randint_like", name: "low", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.UniformInt", name: "minval", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.randint_like", operator_name_second: "mindspore.ops.UniformInt", parameter_name_first : "low", parameter_name_second : "minval"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.randint_like", name: "high", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.UniformInt", name: "maxval", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.randint_like", operator_name_second: "mindspore.ops.UniformInt", parameter_name_first : "high", parameter_name_second : "maxval"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.randint_like", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.ops.UniformInt", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.randint_like", operator_name_second: "mindspore.ops.UniformInt", return_order_first : 1, return_order_second : 1}]-> (m2);

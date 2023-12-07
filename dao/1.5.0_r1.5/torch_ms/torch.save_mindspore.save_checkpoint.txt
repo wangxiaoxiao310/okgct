@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.save", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.save_checkpoint", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.save", name: "obj", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.save_checkpoint", name: "save_obj", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.save", operator_name_second: "mindspore.save_checkpoint", parameter_name_first : "obj", parameter_name_second : "save_obj"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.save", name: "f", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.save_checkpoint", name: "ckpt_file_name", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.save", operator_name_second: "mindspore.save_checkpoint", parameter_name_first : "f", parameter_name_second : "ckpt_file_name"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.save", return_order: 0, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.save_checkpoint", return_order: 0, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.save", operator_name_second: "mindspore.save_checkpoint", return_order_first : 0, return_order_second : 0}]-> (m2);

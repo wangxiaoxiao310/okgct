@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torchvision.datasets.CIFAR100.cIFAR100", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.dataset.Cifar100Dataset.cifar100Dataset", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torchvision.datasets.CIFAR100.cIFAR100", name: "root", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.dataset.Cifar100Dataset.cifar100Dataset", name: "dataset_dir", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.datasets.CIFAR100.cIFAR100", operator_name_second: "mindspore.dataset.Cifar100Dataset.cifar100Dataset", parameter_name_first : "root", parameter_name_second : "dataset_dir"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torchvision.datasets.CIFAR100.cIFAR100", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.dataset.Cifar100Dataset.cifar100Dataset", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.datasets.CIFAR100.cIFAR100", operator_name_second: "mindspore.dataset.Cifar100Dataset.cifar100Dataset", return_order_first : 1, return_order_second : 1}]-> (m2);

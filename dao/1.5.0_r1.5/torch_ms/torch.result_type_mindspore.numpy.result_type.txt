@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.result_type", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.numpy.result_type", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.result_type", name: "tensor1", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.numpy.result_type", name: "arrays_and_dtypes", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.result_type", operator_name_second: "mindspore.numpy.result_type", parameter_name_first : "tensor1", parameter_name_second : "arrays_and_dtypes"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.result_type", name: "tensor2", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.numpy.result_type", name: "arrays_and_dtypes", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.result_type", operator_name_second: "mindspore.numpy.result_type", parameter_name_first : "tensor2", parameter_name_second : "arrays_and_dtypes"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.result_type", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.numpy.result_type", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.result_type", operator_name_second: "mindspore.numpy.result_type", return_order_first : 1, return_order_second : 1}]-> (m2);

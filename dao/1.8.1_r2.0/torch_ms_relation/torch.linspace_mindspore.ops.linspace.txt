@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.linspace", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.ops.linspace", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.linspace", name: "start", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.linspace", name: "start", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.linspace", operator_name_second: "mindspore.ops.linspace", parameter_name_first : "start", parameter_name_second : "start"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.linspace", name: "end", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.linspace", name: "end", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.linspace", operator_name_second: "mindspore.ops.linspace", parameter_name_first : "end", parameter_name_second : "end"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.linspace", name: "steps", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.linspace", name: "steps", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.linspace", operator_name_second: "mindspore.ops.linspace", parameter_name_first : "steps", parameter_name_second : "steps"}]-> (m2);

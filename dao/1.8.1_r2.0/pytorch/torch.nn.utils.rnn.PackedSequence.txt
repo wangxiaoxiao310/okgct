@@ -1,0 +1,57 @@
+merge (: framework {name: "pytorch", version: "1.8.1"});
+merge (: module {framework: "pytorch", name: "torch", version: "1.8.1"});
+match
+ (m1: framework {name: "pytorch", version: "1.8.1"}),
+ (m2: module {framework: "pytorch", name: "torch", version: "1.8.1"})
+merge (m1) -[: classOfFramework {name: "torch"}]-> (m2);
+merge (: module {framework: "pytorch", name: "nn", version: "1.8.1"});
+match
+ (m1: module {framework: "pytorch", name: "torch", version: "1.8.1"}),
+ (m2: module {framework: "pytorch", name: "nn", version: "1.8.1"})
+merge (m1) -[: subClassOfClass {name: "nn"}]-> (m2);
+merge (: module {framework: "pytorch", name: "utils", version: "1.8.1"});
+match
+ (m1: module {framework: "pytorch", name: "nn", version: "1.8.1"}),
+ (m2: module {framework: "pytorch", name: "utils", version: "1.8.1"})
+merge (m1) -[: subClassOfClass {name: "utils"}]-> (m2);
+merge (: module {framework: "pytorch", name: "rnn", version: "1.8.1"});
+match
+ (m1: module {framework: "pytorch", name: "utils", version: "1.8.1"}),
+ (m2: module {framework: "pytorch", name: "rnn", version: "1.8.1"})
+merge (m1) -[: subClassOfClass {name: "rnn"}]-> (m2);
+merge (: operator {framework: "pytorch", name: "PackedSequence", full_name: "torch.nn.utils.rnn.PackedSequence", version: "1.8.1"});
+match
+ (m3: module {framework: "pytorch", name: "rnn", version: "1.8.1"}),
+ (m4: operator {framework: "pytorch", name: "PackedSequence", full_name: "torch.nn.utils.rnn.PackedSequence", version: "1.8.1"})
+merge (m3) -[: operatorOfClass {name: "PackedSequence"}]-> (m4);
+merge (: return {framework: "pytorch", version: "1.8.1", operator: "torch.nn.utils.rnn.PackedSequence", return_order: 1, name: "return", dtype: 0});
+match
+ (m11: operator {framework: "pytorch", full_name: "torch.nn.utils.rnn.PackedSequence", version: "1.8.1"}),
+ (n11: parameter)
+where n11.operator = 'torch.nn.utils.rnn.PackedSequence' and n11.framework = 'pytorch' and n11.version = '1.8.1'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "pytorch", full_name: "torch.nn.utils.rnn.PackedSequence", version: "1.8.1"}),
+ (n11: input)
+where n11.operator = 'torch.nn.utils.rnn.PackedSequence' and n11.framework = 'pytorch' and n11.version = '1.8.1'
+merge (m11) -[: inputOfOperator {input_order: n11.input_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "pytorch", full_name: "torch.nn.utils.rnn.PackedSequence", version: "1.8.1"}),
+ (n11: return)
+where n11.operator = 'torch.nn.utils.rnn.PackedSequence' and n11.framework = 'pytorch' and n11.version = '1.8.1'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "pytorch", version: "1.8.1"}),
+ (n11: childParameter {framework: "pytorch", version: "1.8.1"})
+where n11.operator = 'torch.nn.utils.rnn.PackedSequence' and m11.operator='torch.nn.utils.rnn.PackedSequence' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: input {framework: "pytorch", version: "1.8.1"}),
+ (n11: childInput {framework: "pytorch", version: "1.8.1"})
+where n11.operator = 'torch.nn.utils.rnn.PackedSequence' and m11.operator='torch.nn.utils.rnn.PackedSequence' and n11.input_order=m11.input_order
+merge (m11) -[: oneOfInput {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "pytorch", version: "1.8.1"}),
+ (n11: childReturn {framework: "pytorch", version: "1.8.1"})
+where n11.operator = 'torch.nn.utils.rnn.PackedSequence' and m11.operator='torch.nn.utils.rnn.PackedSequence' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

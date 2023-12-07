@@ -1,0 +1,29 @@
+match
+ (m1: operator {full_name: "torch.nn.Upsample", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.nn.Upsample", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Upsample", name: "size", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Upsample", name: "size", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Upsample", operator_name_second: "mindspore.nn.Upsample", parameter_name_first : "size", parameter_name_second : "size"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Upsample", name: "scale_factor", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Upsample", name: "scale_factor", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Upsample", operator_name_second: "mindspore.nn.Upsample", parameter_name_first : "scale_factor", parameter_name_second : "scale_factor"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Upsample", name: "mode", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Upsample", name: "mode", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Upsample", operator_name_second: "mindspore.nn.Upsample", parameter_name_first : "mode", parameter_name_second : "mode"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Upsample", name: "align_corners", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Upsample", name: "align_corners", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Upsample", operator_name_second: "mindspore.nn.Upsample", parameter_name_first : "align_corners", parameter_name_second : "align_corners"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Upsample", name: "recompute_scale_factor", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Upsample", name: "recompute_scale_factor", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Upsample", operator_name_second: "mindspore.nn.Upsample", parameter_name_first : "recompute_scale_factor", parameter_name_second : "recompute_scale_factor"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Upsample", name: "input", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Upsample", name: "x", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Upsample", operator_name_second: "mindspore.nn.Upsample", parameter_name_first : "input", parameter_name_second : "x"}]-> (m2);

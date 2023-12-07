@@ -1,0 +1,9 @@
+match
+ (m1: operator {full_name: "torchtext.data.functional.sentencepiece_numericalizer", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.dataset.text.SentencePieceTokenizer", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "true"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "true"}]-> (m1);
+match
+ (m1: return {framework: "pytorch", operator: "torchtext.data.functional.sentencepiece_numericalizer", return_order: 1, version: "1.8.1"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.dataset.text.SentencePieceTokenizer", return_order: 1, version: "2.0"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchtext.data.functional.sentencepiece_numericalizer", operator_name_second: "mindspore.dataset.text.SentencePieceTokenizer", return_order_first : 1, return_order_second : 1}]-> (m2);

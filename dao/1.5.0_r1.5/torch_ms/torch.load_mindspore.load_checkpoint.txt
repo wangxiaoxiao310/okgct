@@ -1,0 +1,9 @@
+match
+ (m1: operator {full_name: "torch.load", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.load_checkpoint", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.load", name: "f", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.load_checkpoint", name: "ckpt_file_name", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.load", operator_name_second: "mindspore.load_checkpoint", parameter_name_first : "f", parameter_name_second : "ckpt_file_name"}]-> (m2);

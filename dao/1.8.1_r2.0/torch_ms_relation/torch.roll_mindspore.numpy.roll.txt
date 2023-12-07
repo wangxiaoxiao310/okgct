@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.roll", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.numpy.roll", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.roll", name: "input", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.numpy.roll", name: "a", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.roll", operator_name_second: "mindspore.numpy.roll", parameter_name_first : "input", parameter_name_second : "a"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.roll", name: "shifts", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.numpy.roll", name: "shift", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.roll", operator_name_second: "mindspore.numpy.roll", parameter_name_first : "shifts", parameter_name_second : "shift"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.roll", name: "dims", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.numpy.roll", name: "axes", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.roll", operator_name_second: "mindspore.numpy.roll", parameter_name_first : "dims", parameter_name_second : "axes"}]-> (m2);

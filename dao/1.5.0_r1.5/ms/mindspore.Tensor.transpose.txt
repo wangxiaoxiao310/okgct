@@ -1,0 +1,43 @@
+merge (: framework {name: "mindspore", version: "1.5"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "1.5"});
+match
+ (m1: framework {name: "mindspore", version: "1.5"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "1.5"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: module {framework: "mindspore", name: "Tensor", version: "1.5"});
+match
+ (m1: module {framework: "mindspore", name: "mindspore", version: "1.5"}),
+ (m2: module {framework: "mindspore", name: "Tensor", version: "1.5"})
+merge (m1) -[: subClassOfClass {name: "Tensor"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "transpose", full_name: "mindspore.Tensor.transpose", version: "1.5"});
+match
+ (m3: module {framework: "mindspore", name: "Tensor", version: "1.5"}),
+ (m4: operator {framework: "mindspore", name: "transpose", full_name: "mindspore.Tensor.transpose", version: "1.5"})
+merge (m3) -[: operatorOfClass {name: "transpose"}]-> (m4);
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.Tensor.transpose", parameter_order: 1, name: "axes", dtype_num: 4, dtype: "None", optional: "True", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.Tensor.transpose", dtype_order: 1, parameter_order: 1, name: "axes_1", dtype : "None", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.Tensor.transpose", dtype_order: 2, parameter_order: 1, name: "axes_2", dtype : "tuple(int)", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.Tensor.transpose", dtype_order: 3, parameter_order: 1, name: "axes_3", dtype : "list(int)", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.Tensor.transpose", dtype_order: 4, parameter_order: 1, name: "axes_4", dtype : "int", default : ""});
+merge (: return {framework: "mindspore", version: "1.5", operator: "mindspore.Tensor.transpose", return_order: 1, name: "return", dtype: 1});
+merge (: childReturn {framework: "mindspore", version: "1.5", operator: "mindspore.Tensor.transpose", dtype_order: 1, return_order: 1, name: "return_1", dtype: "Tensor"});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.Tensor.transpose", version: "1.5"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.Tensor.transpose' and n11.framework = 'mindspore' and n11.version = '1.5'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.Tensor.transpose", version: "1.5"}),
+ (n11: return)
+where n11.operator = 'mindspore.Tensor.transpose' and n11.framework = 'mindspore' and n11.version = '1.5'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "1.5"}),
+ (n11: childParameter {framework: "mindspore", version: "1.5"})
+where n11.operator = 'mindspore.Tensor.transpose' and m11.operator='mindspore.Tensor.transpose' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "1.5"}),
+ (n11: childReturn {framework: "mindspore", version: "1.5"})
+where n11.operator = 'mindspore.Tensor.transpose' and m11.operator='mindspore.Tensor.transpose' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

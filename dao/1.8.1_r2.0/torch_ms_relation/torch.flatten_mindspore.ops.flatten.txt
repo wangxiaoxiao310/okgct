@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torch.flatten", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.ops.flatten", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.flatten", name: "input", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.flatten", name: "input", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.flatten", operator_name_second: "mindspore.ops.flatten", parameter_name_first : "input", parameter_name_second : "input"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.flatten", name: "end_dim", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.flatten", name: "end_dim", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.flatten", operator_name_second: "mindspore.ops.flatten", parameter_name_first : "end_dim", parameter_name_second : "end_dim"}]-> (m2);

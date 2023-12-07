@@ -1,0 +1,21 @@
+match
+ (m1: operator {full_name: "torch.rot90", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.ops.rot90", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.rot90", name: "input", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.rot90", name: "input", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.rot90", operator_name_second: "mindspore.ops.rot90", parameter_name_first : "input", parameter_name_second : "input"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.rot90", name: "k", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.rot90", name: "k", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.rot90", operator_name_second: "mindspore.ops.rot90", parameter_name_first : "k", parameter_name_second : "k"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.rot90", name: "dims", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.rot90", name: "dims", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.rot90", operator_name_second: "mindspore.ops.rot90", parameter_name_first : "dims", parameter_name_second : "dims"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.rot90", return_order: 1, version: "1.8.1"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.ops.rot90", return_order: 1, version: "2.0"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.rot90", operator_name_second: "mindspore.ops.rot90", return_order_first : 1, return_order_second : 1}]-> (m2);

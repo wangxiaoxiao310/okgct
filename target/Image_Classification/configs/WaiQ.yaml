@@ -1,0 +1,40 @@
+# 加载数据
+dataset: 'cifar10' # 数据集名称
+traindir: '/home/kgraph/workspace/data/train_cifar10' # 加载训练数据路径
+testdir: '/home/kgraph/workspace//data/test_cifar10' # 加载测试数据路径
+
+# train_set_proportion: 0.8 # 训练集验证集比例划分(暂时没用)
+train_shuffle: True # 是否随机打乱训练集
+test_shuffle: False # 是否随机打乱验证集
+workers: 2 # 多线程加载数据
+img_size: 32 #
+img_channel: 3 #
+
+# 加载模型
+checkpoint_load: False # 是否加载预训练模型
+checkpoint_load_file: '' # 加载预训练模型路径
+model: 'Resnet50_model' # 模型选择, 模型名称
+# model: 'MobileNetv2_model'
+# model: 'DenseNet121_model'
+# model: 'ShuffleNetV2_model'
+# model: 'HarDNet_model'
+# model: 'Efficientnet_b3_model'
+# model: 'GENet_Res50_model'
+# model: 'VIT_model'
+evaluate: False # 是否进行验证(暂时没用)
+
+# 保存结果路径
+checkpoint_save: False # 是否保存模型
+checkpoint_save_dir: '/home/kgraph/workspace/data/ms/checkpoint/' # 模型保存路径
+valid_results_dir: '' # 验证集结果
+output_dir: '/home/kgraph/workspace/data/ms/logs/' # 输出保存结果的路径
+
+# 超参数设置
+batch_size: 128
+test_batch_size: 100
+lr: 0.1
+
+# 训练参数设置
+start_epoch: 0
+max_epochs: 200
+print_freq: 10 # 每多少个epoch做一次eval并记录

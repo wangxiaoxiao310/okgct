@@ -1,0 +1,9 @@
+match
+ (m1: operator {full_name: "torch.Tensor.zero_", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.ops.ZerosLike.zerosLike", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: return {framework: "pytorch", operator: "torch.Tensor.zero_", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.ops.ZerosLike.zerosLike", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.Tensor.zero_", operator_name_second: "mindspore.ops.ZerosLike.zerosLike", return_order_first : 1, return_order_second : 1}]-> (m2);

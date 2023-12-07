@@ -1,0 +1,69 @@
+merge (: framework {name: "mindspore", version: "2.0"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "2.0"});
+match
+ (m1: framework {name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "2.0"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: module {framework: "mindspore", name: "train", version: "2.0"});
+match
+ (m1: module {framework: "mindspore", name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "train", version: "2.0"})
+merge (m1) -[: subClassOfClass {name: "train"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "CheckpointConfig", full_name: "mindspore.train.CheckpointConfig", version: "2.0"});
+match
+ (m3: module {framework: "mindspore", name: "train", version: "2.0"}),
+ (m4: operator {framework: "mindspore", name: "CheckpointConfig", full_name: "mindspore.train.CheckpointConfig", version: "2.0"})
+merge (m3) -[: operatorOfClass {name: "CheckpointConfig"}]-> (m4);
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 1, name: "save_checkpoint_steps", dtype_num: 1, dtype: "int", optional: "False", default: "1"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 1, name: "save_checkpoint_steps_1", dtype : "int", default : "1"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 2, name: "save_checkpoint_seconds", dtype_num: 1, dtype: "int", optional: "False", default: "0"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 2, name: "save_checkpoint_seconds_1", dtype : "int", default : "0"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 3, name: "keep_checkpoint_max", dtype_num: 1, dtype: "int", optional: "False", default: "5"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 3, name: "keep_checkpoint_max_1", dtype : "int", default : "5"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 4, name: "keep_checkpoint_per_n_minutes", dtype_num: 1, dtype: "int", optional: "False", default: "0"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 4, name: "keep_checkpoint_per_n_minutes_1", dtype : "int", default : "0"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 5, name: "integrated_save", dtype_num: 1, dtype: "bool", optional: "False", default: "True"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 5, name: "integrated_save_1", dtype : "bool", default : "True"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 6, name: "async_save", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 6, name: "async_save_1", dtype : "bool", default : "False"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 7, name: "saved_network", dtype_num: 1, dtype: "Cell", optional: "False", default: "None"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 7, name: "saved_network_1", dtype : "Cell", default : "None"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 8, name: "append_info", dtype_num: 1, dtype: "list", optional: "False", default: "None"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 8, name: "append_info_1", dtype : "list", default : "None"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 9, name: "enc_key", dtype_num: 1, dtype: "Union[None, bytes]", optional: "False", default: "None"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 9, name: "enc_key_1", dtype : "Union[None, bytes]", default : "None"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 10, name: "enc_mode", dtype_num: 1, dtype: "str", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 10, name: "enc_mode_1", dtype : "str", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", parameter_order: 11, name: "exception_save", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", dtype_order: 1, parameter_order: 11, name: "exception_save_1", dtype : "bool", default : "False"});
+merge (: return {framework: "mindspore", version: "2.0", operator: "mindspore.train.CheckpointConfig", return_order: 1, name: "return", dtype: 0});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.train.CheckpointConfig", version: "2.0"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.train.CheckpointConfig' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.train.CheckpointConfig", version: "2.0"}),
+ (n11: input)
+where n11.operator = 'mindspore.train.CheckpointConfig' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: inputOfOperator {input_order: n11.input_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.train.CheckpointConfig", version: "2.0"}),
+ (n11: return)
+where n11.operator = 'mindspore.train.CheckpointConfig' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "2.0"}),
+ (n11: childParameter {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.train.CheckpointConfig' and m11.operator='mindspore.train.CheckpointConfig' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: input {framework: "mindspore", version: "2.0"}),
+ (n11: childInput {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.train.CheckpointConfig' and m11.operator='mindspore.train.CheckpointConfig' and n11.input_order=m11.input_order
+merge (m11) -[: oneOfInput {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "2.0"}),
+ (n11: childReturn {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.train.CheckpointConfig' and m11.operator='mindspore.train.CheckpointConfig' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

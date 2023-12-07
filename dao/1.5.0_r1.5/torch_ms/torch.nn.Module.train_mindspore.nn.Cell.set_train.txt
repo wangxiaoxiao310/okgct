@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torch.nn.Module.train", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.nn.Cell.set_train", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Module.train", name: "mode", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Cell.set_train", name: "mode", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Module.train", operator_name_second: "mindspore.nn.Cell.set_train", parameter_name_first : "mode", parameter_name_second : "mode"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.nn.Module.train", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.nn.Cell.set_train", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Module.train", operator_name_second: "mindspore.nn.Cell.set_train", return_order_first : 1, return_order_second : 1}]-> (m2);

@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.nn.MaxPool2d", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.nn.MaxPool2d", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.MaxPool2d", name: "kernel_size", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.MaxPool2d", name: "kernel_size", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.MaxPool2d", operator_name_second: "mindspore.nn.MaxPool2d", parameter_name_first : "kernel_size", parameter_name_second : "kernel_size"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.MaxPool2d", name: "stride", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.MaxPool2d", name: "stride", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.MaxPool2d", operator_name_second: "mindspore.nn.MaxPool2d", parameter_name_first : "stride", parameter_name_second : "stride"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.MaxPool2d", name: "padding", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.MaxPool2d", name: "padding", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.MaxPool2d", operator_name_second: "mindspore.nn.MaxPool2d", parameter_name_first : "padding", parameter_name_second : "padding"}]-> (m2);

@@ -1,0 +1,67 @@
+merge (: framework {name: "pytorch", version: "1.8.1"});
+merge (: module {framework: "pytorch", name: "torch", version: "1.8.1"});
+match
+ (m1: framework {name: "pytorch", version: "1.8.1"}),
+ (m2: module {framework: "pytorch", name: "torch", version: "1.8.1"})
+merge (m1) -[: classOfFramework {name: "torch"}]-> (m2);
+merge (: module {framework: "pytorch", name: "autograd", version: "1.8.1"});
+match
+ (m1: module {framework: "pytorch", name: "torch", version: "1.8.1"}),
+ (m2: module {framework: "pytorch", name: "autograd", version: "1.8.1"})
+merge (m1) -[: subClassOfClass {name: "autograd"}]-> (m2);
+merge (: operator {framework: "pytorch", name: "gradcheck", full_name: "torch.autograd.gradcheck", version: "1.8.1"});
+match
+ (m3: module {framework: "pytorch", name: "autograd", version: "1.8.1"}),
+ (m4: operator {framework: "pytorch", name: "gradcheck", full_name: "torch.autograd.gradcheck", version: "1.8.1"})
+merge (m3) -[: operatorOfClass {name: "gradcheck"}]-> (m4);
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 1, name: "func", dtype_num: 1, dtype: " function ", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 1, name: "func_1", dtype : " function ", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 2, name: "inputs", dtype_num: 1, dtype: " tuple of Tensor or Tensor ", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 2, name: "inputs_1", dtype : " tuple of Tensor or Tensor ", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 3, name: "eps", dtype_num: 1, dtype: "float", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 3, name: "eps_1", dtype : "float", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 4, name: "atol", dtype_num: 1, dtype: "float", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 4, name: "atol_1", dtype : "float", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 5, name: "rtol", dtype_num: 1, dtype: "float", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 5, name: "rtol_1", dtype : "float", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 6, name: "raise_exception", dtype_num: 1, dtype: "bool", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 6, name: "raise_exception_1", dtype : "bool", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 7, name: "check_sparse_nnz", dtype_num: 1, dtype: "bool", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 7, name: "check_sparse_nnz_1", dtype : "bool", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 8, name: "nondet_tol", dtype_num: 1, dtype: "float", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 8, name: "nondet_tol_1", dtype : "float", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 9, name: "check_undefined_grad", dtype_num: 1, dtype: "bool", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 9, name: "check_undefined_grad_1", dtype : "bool", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", parameter_order: 10, name: "check_batched_grad", dtype_num: 1, dtype: "bool", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", dtype_order: 1, parameter_order: 10, name: "check_batched_grad_1", dtype : "bool", default : ""});
+merge (: return {framework: "pytorch", version: "1.8.1", operator: "torch.autograd.gradcheck", return_order: 1, name: "return", dtype: 0});
+match
+ (m11: operator {framework: "pytorch", full_name: "torch.autograd.gradcheck", version: "1.8.1"}),
+ (n11: parameter)
+where n11.operator = 'torch.autograd.gradcheck' and n11.framework = 'pytorch' and n11.version = '1.8.1'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "pytorch", full_name: "torch.autograd.gradcheck", version: "1.8.1"}),
+ (n11: input)
+where n11.operator = 'torch.autograd.gradcheck' and n11.framework = 'pytorch' and n11.version = '1.8.1'
+merge (m11) -[: inputOfOperator {input_order: n11.input_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "pytorch", full_name: "torch.autograd.gradcheck", version: "1.8.1"}),
+ (n11: return)
+where n11.operator = 'torch.autograd.gradcheck' and n11.framework = 'pytorch' and n11.version = '1.8.1'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "pytorch", version: "1.8.1"}),
+ (n11: childParameter {framework: "pytorch", version: "1.8.1"})
+where n11.operator = 'torch.autograd.gradcheck' and m11.operator='torch.autograd.gradcheck' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: input {framework: "pytorch", version: "1.8.1"}),
+ (n11: childInput {framework: "pytorch", version: "1.8.1"})
+where n11.operator = 'torch.autograd.gradcheck' and m11.operator='torch.autograd.gradcheck' and n11.input_order=m11.input_order
+merge (m11) -[: oneOfInput {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "pytorch", version: "1.8.1"}),
+ (n11: childReturn {framework: "pytorch", version: "1.8.1"})
+where n11.operator = 'torch.autograd.gradcheck' and m11.operator='torch.autograd.gradcheck' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

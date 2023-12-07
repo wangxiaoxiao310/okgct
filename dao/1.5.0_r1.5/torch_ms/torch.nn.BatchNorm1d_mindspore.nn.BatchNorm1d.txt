@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.nn.BatchNorm1d", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.nn.BatchNorm1d", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.BatchNorm1d", name: "num_features", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.BatchNorm1d", name: "num_features", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.BatchNorm1d", operator_name_second: "mindspore.nn.BatchNorm1d", parameter_name_first : "num_features", parameter_name_second : "num_features"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.BatchNorm1d", name: "eps", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.BatchNorm1d", name: "eps", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.BatchNorm1d", operator_name_second: "mindspore.nn.BatchNorm1d", parameter_name_first : "eps", parameter_name_second : "eps"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.BatchNorm1d", name: "affine", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.BatchNorm1d", name: "affine", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.BatchNorm1d", operator_name_second: "mindspore.nn.BatchNorm1d", parameter_name_first : "affine", parameter_name_second : "affine"}]-> (m2);

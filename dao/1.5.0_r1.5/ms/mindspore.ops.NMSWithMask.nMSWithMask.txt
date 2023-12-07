@@ -1,0 +1,44 @@
+merge (: framework {name: "mindspore", version: "1.5"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "1.5"});
+match
+ (m1: framework {name: "mindspore", version: "1.5"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "1.5"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: module {framework: "mindspore", name: "ops", version: "1.5"});
+match
+ (m1: module {framework: "mindspore", name: "mindspore", version: "1.5"}),
+ (m2: module {framework: "mindspore", name: "ops", version: "1.5"})
+merge (m1) -[: subClassOfClass {name: "ops"}]-> (m2);
+merge (: module {framework: "mindspore", name: "NMSWithMask", version: "1.5"});
+match
+ (m1: module {framework: "mindspore", name: "ops", version: "1.5"}),
+ (m2: module {framework: "mindspore", name: "NMSWithMask", version: "1.5"})
+merge (m1) -[: subClassOfClass {name: "NMSWithMask"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "nMSWithMask", full_name: "mindspore.ops.NMSWithMask.nMSWithMask", version: "1.5"});
+match
+ (m3: module {framework: "mindspore", name: "NMSWithMask", version: "1.5"}),
+ (m4: operator {framework: "mindspore", name: "nMSWithMask", full_name: "mindspore.ops.NMSWithMask.nMSWithMask", version: "1.5"})
+merge (m3) -[: operatorOfClass {name: "nMSWithMask"}]-> (m4);
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.ops.NMSWithMask.nMSWithMask", parameter_order: 1, name: "iou_threshold", dtype_num: 1, dtype: "float", optional: "False", default: "0.5"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.ops.NMSWithMask.nMSWithMask", dtype_order: 1, parameter_order: 1, name: "iou_threshold_1", dtype : "float", default : "0.5"});
+merge (: return {framework: "mindspore", version: "1.5", operator: "mindspore.ops.NMSWithMask.nMSWithMask", return_order: 1, name: "return", dtype: 0});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.NMSWithMask.nMSWithMask", version: "1.5"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.ops.NMSWithMask.nMSWithMask' and n11.framework = 'mindspore' and n11.version = '1.5'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.NMSWithMask.nMSWithMask", version: "1.5"}),
+ (n11: return)
+where n11.operator = 'mindspore.ops.NMSWithMask.nMSWithMask' and n11.framework = 'mindspore' and n11.version = '1.5'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "1.5"}),
+ (n11: childParameter {framework: "mindspore", version: "1.5"})
+where n11.operator = 'mindspore.ops.NMSWithMask.nMSWithMask' and m11.operator='mindspore.ops.NMSWithMask.nMSWithMask' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "1.5"}),
+ (n11: childReturn {framework: "mindspore", version: "1.5"})
+where n11.operator = 'mindspore.ops.NMSWithMask.nMSWithMask' and m11.operator='mindspore.ops.NMSWithMask.nMSWithMask' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

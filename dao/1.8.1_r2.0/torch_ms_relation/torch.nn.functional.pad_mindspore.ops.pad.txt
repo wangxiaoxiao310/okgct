@@ -1,0 +1,21 @@
+match
+ (m1: operator {full_name: "torch.nn.functional.pad", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.ops.pad", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.functional.pad", name: "input", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.pad", name: "input_x", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.functional.pad", operator_name_second: "mindspore.ops.pad", parameter_name_first : "input", parameter_name_second : "input_x"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.functional.pad", name: "pad", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.pad", name: "padding", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.functional.pad", operator_name_second: "mindspore.ops.pad", parameter_name_first : "pad", parameter_name_second : "padding"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.functional.pad", name: "mode", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.pad", name: "mode", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.functional.pad", operator_name_second: "mindspore.ops.pad", parameter_name_first : "mode", parameter_name_second : "mode"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.functional.pad", name: "value", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.pad", name: "value", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.functional.pad", operator_name_second: "mindspore.ops.pad", parameter_name_first : "value", parameter_name_second : "value"}]-> (m2);

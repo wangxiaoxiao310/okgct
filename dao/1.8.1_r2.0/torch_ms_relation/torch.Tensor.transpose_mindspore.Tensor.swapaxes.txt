@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.Tensor.transpose", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.Tensor.swapaxes", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.Tensor.transpose", name: "dim0", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.Tensor.swapaxes", name: "axis0", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.Tensor.transpose", operator_name_second: "mindspore.Tensor.swapaxes", parameter_name_first : "dim0", parameter_name_second : "axis0"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.Tensor.transpose", name: "dim1", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.Tensor.swapaxes", name: "axis1", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.Tensor.transpose", operator_name_second: "mindspore.Tensor.swapaxes", parameter_name_first : "dim1", parameter_name_second : "axis1"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.Tensor.transpose", return_order: 1, version: "1.8.1"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.Tensor.swapaxes", return_order: 1, version: "2.0"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.Tensor.transpose", operator_name_second: "mindspore.Tensor.swapaxes", return_order_first : 1, return_order_second : 1}]-> (m2);

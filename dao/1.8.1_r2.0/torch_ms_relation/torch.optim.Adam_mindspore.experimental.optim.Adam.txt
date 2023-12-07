@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.optim.Adam", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.experimental.optim.Adam", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.optim.Adam", name: "params", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.experimental.optim.Adam", name: "params", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.optim.Adam", operator_name_second: "mindspore.experimental.optim.Adam", parameter_name_first : "params", parameter_name_second : "params"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.optim.Adam", name: "lr", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.experimental.optim.Adam", name: "lr", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.optim.Adam", operator_name_second: "mindspore.experimental.optim.Adam", parameter_name_first : "lr", parameter_name_second : "lr"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.optim.Adam", name: "weight_decay", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.experimental.optim.Adam", name: "weight_decay", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.optim.Adam", operator_name_second: "mindspore.experimental.optim.Adam", parameter_name_first : "weight_decay", parameter_name_second : "weight_decay"}]-> (m2);

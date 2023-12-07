@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.nn.Parameter", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.Parameter", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Parameter", name: "requires_grad", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.Parameter", name: "requires_grad", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Parameter", operator_name_second: "mindspore.Parameter", parameter_name_first : "requires_grad", parameter_name_second : "requires_grad"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Parameter", name: "data", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.Parameter", name: "input", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Parameter", operator_name_second: "mindspore.Parameter", parameter_name_first : "data", parameter_name_second : "input"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.nn.Parameter", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.Parameter", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Parameter", operator_name_second: "mindspore.Parameter", return_order_first : 1, return_order_second : 1}]-> (m2);

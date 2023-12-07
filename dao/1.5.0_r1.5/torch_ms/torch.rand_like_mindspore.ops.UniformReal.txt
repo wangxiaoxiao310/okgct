@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torch.rand_like", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.ops.UniformReal", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "true"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "true"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.rand_like", name: "size", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.UniformReal", name: "shape", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.rand_like", operator_name_second: "mindspore.ops.UniformReal", parameter_name_first : "size", parameter_name_second : "shape"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.rand_like", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.ops.UniformReal", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.rand_like", operator_name_second: "mindspore.ops.UniformReal", return_order_first : 1, return_order_second : 1}]-> (m2);

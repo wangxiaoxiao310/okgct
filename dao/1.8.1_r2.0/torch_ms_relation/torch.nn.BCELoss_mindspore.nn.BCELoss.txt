@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torch.nn.BCELoss", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.nn.BCELoss", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.BCELoss", name: "weight", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.BCELoss", name: "weight", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.BCELoss", operator_name_second: "mindspore.nn.BCELoss", parameter_name_first : "weight", parameter_name_second : "weight"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.BCELoss", name: "reduction", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.BCELoss", name: "reduction", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.BCELoss", operator_name_second: "mindspore.nn.BCELoss", parameter_name_first : "reduction", parameter_name_second : "reduction"}]-> (m2);

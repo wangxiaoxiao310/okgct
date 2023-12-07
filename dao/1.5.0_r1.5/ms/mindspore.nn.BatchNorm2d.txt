@@ -1,0 +1,68 @@
+merge (: framework {name: "mindspore", version: "1.5"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "1.5"});
+match
+ (m1: framework {name: "mindspore", version: "1.5"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "1.5"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: module {framework: "mindspore", name: "nn", version: "1.5"});
+match
+ (m1: module {framework: "mindspore", name: "mindspore", version: "1.5"}),
+ (m2: module {framework: "mindspore", name: "nn", version: "1.5"})
+merge (m1) -[: subClassOfClass {name: "nn"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "BatchNorm2d", full_name: "mindspore.nn.BatchNorm2d", version: "1.5"});
+match
+ (m3: module {framework: "mindspore", name: "nn", version: "1.5"}),
+ (m4: operator {framework: "mindspore", name: "BatchNorm2d", full_name: "mindspore.nn.BatchNorm2d", version: "1.5"})
+merge (m3) -[: operatorOfClass {name: "BatchNorm2d"}]-> (m4);
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 1, name: "num_features", dtype_num: 1, dtype: "int", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 1, name: "num_features_1", dtype : "int", default : ""});
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 2, name: "eps", dtype_num: 1, dtype: "float", optional: "True", default: "1e-5"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 2, name: "eps_1", dtype : "float", default : "1e-5"});
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 3, name: "momentum", dtype_num: 1, dtype: "float", optional: "True", default: "0.9"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 3, name: "momentum_1", dtype : "float", default : "0.9"});
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 4, name: "affine", dtype_num: 1, dtype: "bool", optional: "True", default: "True"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 4, name: "affine_1", dtype : "bool", default : "True"});
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 5, name: "gamma_init", dtype_num: 4, dtype: "Tensor", optional: "True", default: "ones"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 5, name: "gamma_init_1", dtype : "Tensor", default : "ones"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 2, parameter_order: 5, name: "gamma_init_2", dtype : "str", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 3, parameter_order: 5, name: "gamma_init_3", dtype : "Initializer", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 4, parameter_order: 5, name: "gamma_init_4", dtype : "numbers.Number", default : ""});
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 6, name: "beta_init", dtype_num: 4, dtype: "Tensor", optional: "True", default: "zeros"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 6, name: "beta_init_1", dtype : "Tensor", default : "zeros"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 2, parameter_order: 6, name: "beta_init_2", dtype : "str", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 3, parameter_order: 6, name: "beta_init_3", dtype : "Initializer", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 4, parameter_order: 6, name: "beta_init_4", dtype : "numbers.Number", default : ""});
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 7, name: "moving_mean_init", dtype_num: 4, dtype: "Tensor", optional: "True", default: "zeros"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 7, name: "moving_mean_init_1", dtype : "Tensor", default : "zeros"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 2, parameter_order: 7, name: "moving_mean_init_2", dtype : "str", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 3, parameter_order: 7, name: "moving_mean_init_3", dtype : "Initializer", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 4, parameter_order: 7, name: "moving_mean_init_4", dtype : "numbers.Number", default : ""});
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 8, name: "moving_var_init", dtype_num: 4, dtype: "Tensor", optional: "True", default: "ones"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 8, name: "moving_var_init_1", dtype : "Tensor", default : "ones"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 2, parameter_order: 8, name: "moving_var_init_2", dtype : "str", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 3, parameter_order: 8, name: "moving_var_init_3", dtype : "Initializer", default : ""});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 4, parameter_order: 8, name: "moving_var_init_4", dtype : "numbers.Number", default : ""});
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 9, name: "use_batch_statistics", dtype_num: 1, dtype: "bool", optional: "True", default: "None"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 9, name: "use_batch_statistics_1", dtype : "bool", default : "None"});
+merge (: parameter {framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", parameter_order: 10, name: "data_format", dtype_num: 1, dtype: "str", optional: "True", default: "NCHW"});
+merge (: childParameter  { framework: "mindspore", version: "1.5", operator: "mindspore.nn.BatchNorm2d", dtype_order: 1, parameter_order: 10, name: "data_format_1", dtype : "str", default : "NCHW"});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.nn.BatchNorm2d", version: "1.5"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.nn.BatchNorm2d' and n11.framework = 'mindspore' and n11.version = '1.5'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.nn.BatchNorm2d", version: "1.5"}),
+ (n11: return)
+where n11.operator = 'mindspore.nn.BatchNorm2d' and n11.framework = 'mindspore' and n11.version = '1.5'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "1.5"}),
+ (n11: childParameter {framework: "mindspore", version: "1.5"})
+where n11.operator = 'mindspore.nn.BatchNorm2d' and m11.operator='mindspore.nn.BatchNorm2d' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "1.5"}),
+ (n11: childReturn {framework: "mindspore", version: "1.5"})
+where n11.operator = 'mindspore.nn.BatchNorm2d' and m11.operator='mindspore.nn.BatchNorm2d' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

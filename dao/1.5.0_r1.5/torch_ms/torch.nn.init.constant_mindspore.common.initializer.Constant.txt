@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torch.nn.init.constant", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.common.initializer.Constant", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "true"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "true"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.init.constant", name: "val", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.common.initializer.Constant", name: "value", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.init.constant", operator_name_second: "mindspore.common.initializer.Constant", parameter_name_first : "val", parameter_name_second : "value"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.init.constant", name: "APPEND", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.common.initializer.Constant", name: "['tensor']", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.init.constant", operator_name_second: "mindspore.common.initializer.Constant", parameter_name_first : "APPEND", parameter_name_second : "['tensor']"}]-> (m2);

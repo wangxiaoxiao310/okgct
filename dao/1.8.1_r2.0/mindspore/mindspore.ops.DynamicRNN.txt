@@ -1,0 +1,81 @@
+merge (: framework {name: "mindspore", version: "2.0"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "2.0"});
+match
+ (m1: framework {name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "2.0"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: module {framework: "mindspore", name: "ops", version: "2.0"});
+match
+ (m1: module {framework: "mindspore", name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "ops", version: "2.0"})
+merge (m1) -[: subClassOfClass {name: "ops"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "DynamicRNN", full_name: "mindspore.ops.DynamicRNN", version: "2.0"});
+match
+ (m3: module {framework: "mindspore", name: "ops", version: "2.0"}),
+ (m4: operator {framework: "mindspore", name: "DynamicRNN", full_name: "mindspore.ops.DynamicRNN", version: "2.0"})
+merge (m3) -[: operatorOfClass {name: "DynamicRNN"}]-> (m4);
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 1, name: "cell_type", dtype_num: 1, dtype: "str", optional: "False", default: "LSTM"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 1, name: "cell_type_1", dtype : "str", default : "LSTM"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 2, name: "direction", dtype_num: 1, dtype: "str", optional: "False", default: "UNIDIRECTIONAL"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 2, name: "direction_1", dtype : "str", default : "UNIDIRECTIONAL"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 3, name: "cell_depth", dtype_num: 1, dtype: "int", optional: "False", default: "1"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 3, name: "cell_depth_1", dtype : "int", default : "1"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 4, name: "use_peephole", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 4, name: "use_peephole_1", dtype : "bool", default : "False"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 5, name: "keep_prob", dtype_num: 1, dtype: "float", optional: "False", default: "1.0"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 5, name: "keep_prob_1", dtype : "float", default : "1.0"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 6, name: "cell_clip", dtype_num: 1, dtype: "float", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 6, name: "cell_clip_1", dtype : "float", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 7, name: "num_proj", dtype_num: 1, dtype: "int", optional: "False", default: "0"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 7, name: "num_proj_1", dtype : "int", default : "0"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 8, name: "time_major", dtype_num: 1, dtype: "bool", optional: "False", default: "True"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 8, name: "time_major_1", dtype : "bool", default : "True"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 9, name: "activation", dtype_num: 1, dtype: "str", optional: "False", default: "tanh"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 9, name: "activation_1", dtype : "str", default : "tanh"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 10, name: "forget_bias", dtype_num: 1, dtype: "float", optional: "False", default: "0.0"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 10, name: "forget_bias_1", dtype : "float", default : "0.0"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", parameter_order: 11, name: "is_training", dtype_num: 1, dtype: "bool", optional: "False", default: "True"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, parameter_order: 11, name: "is_training_1", dtype : "bool", default : "True"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", input_order: 1, name: "x", dtype_num: 1, dtype: "Tensor", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, inputs_order: 1, name: "x_1", dtype : "Tensor", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", input_order: 2, name: "w", dtype_num: 1, dtype: "Tensor", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, inputs_order: 2, name: "w_1", dtype : "Tensor", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", input_order: 3, name: "b", dtype_num: 1, dtype: "Tensor", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, inputs_order: 3, name: "b_1", dtype : "Tensor", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", input_order: 4, name: "seq_length", dtype_num: 1, dtype: "Tensor", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, inputs_order: 4, name: "seq_length_1", dtype : "Tensor", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", input_order: 5, name: "init_h", dtype_num: 1, dtype: "Tensor", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, inputs_order: 5, name: "init_h_1", dtype : "Tensor", default : "['']"});
+merge (: input {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", input_order: 6, name: "init_c", dtype_num: 1, dtype: "Tensor", optional: "False", default: "['']"});
+merge (: childInput  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", dtype_order: 1, inputs_order: 6, name: "init_c_1", dtype : "Tensor", default : "['']"});
+merge (: return {framework: "mindspore", version: "2.0", operator: "mindspore.ops.DynamicRNN", return_order: 1, name: "return", dtype: 0});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.DynamicRNN", version: "2.0"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.ops.DynamicRNN' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.DynamicRNN", version: "2.0"}),
+ (n11: input)
+where n11.operator = 'mindspore.ops.DynamicRNN' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: inputOfOperator {input_order: n11.input_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.DynamicRNN", version: "2.0"}),
+ (n11: return)
+where n11.operator = 'mindspore.ops.DynamicRNN' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "2.0"}),
+ (n11: childParameter {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.ops.DynamicRNN' and m11.operator='mindspore.ops.DynamicRNN' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: input {framework: "mindspore", version: "2.0"}),
+ (n11: childInput {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.ops.DynamicRNN' and m11.operator='mindspore.ops.DynamicRNN' and n11.input_order=m11.input_order
+merge (m11) -[: oneOfInput {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "2.0"}),
+ (n11: childReturn {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.ops.DynamicRNN' and m11.operator='mindspore.ops.DynamicRNN' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

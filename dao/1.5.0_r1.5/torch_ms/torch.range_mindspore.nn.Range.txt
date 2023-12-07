@@ -1,0 +1,21 @@
+match
+ (m1: operator {full_name: "torch.range", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.nn.Range", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "true"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "true"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.range", name: "start", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Range", name: "start", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.range", operator_name_second: "mindspore.nn.Range", parameter_name_first : "start", parameter_name_second : "start"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.range", name: "end", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Range", name: "limit", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.range", operator_name_second: "mindspore.nn.Range", parameter_name_first : "end", parameter_name_second : "limit"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.range", name: "step", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Range", name: "delta", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.range", operator_name_second: "mindspore.nn.Range", parameter_name_first : "step", parameter_name_second : "delta"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.range", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.nn.Range", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.range", operator_name_second: "mindspore.nn.Range", return_order_first : 1, return_order_second : 1}]-> (m2);

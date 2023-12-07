@@ -1,0 +1,9 @@
+match
+ (m1: operator {full_name: "torchvision.datasets.VOCSegmentation", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.dataset.VOCDataset", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: return {framework: "pytorch", operator: "torchvision.datasets.VOCSegmentation", return_order: 1, version: "1.8.1"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.dataset.VOCDataset", return_order: 1, version: "2.0"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.datasets.VOCSegmentation", operator_name_second: "mindspore.dataset.VOCDataset", return_order_first : 1, return_order_second : 1}]-> (m2);

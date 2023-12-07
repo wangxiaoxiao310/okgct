@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.nn.Linear", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.nn.Dense", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Linear", name: "in_features", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Dense", name: "in_channels", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Linear", operator_name_second: "mindspore.nn.Dense", parameter_name_first : "in_features", parameter_name_second : "in_channels"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Linear", name: "out_features", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Dense", name: "out_channels", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Linear", operator_name_second: "mindspore.nn.Dense", parameter_name_first : "out_features", parameter_name_second : "out_channels"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Linear", name: "bias", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Dense", name: "has_bias", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Linear", operator_name_second: "mindspore.nn.Dense", parameter_name_first : "bias", parameter_name_second : "has_bias"}]-> (m2);

@@ -1,0 +1,54 @@
+merge (: framework {name: "mindspore", version: "2.0"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "2.0"});
+match
+ (m1: framework {name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "2.0"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: module {framework: "mindspore", name: "ops", version: "2.0"});
+match
+ (m1: module {framework: "mindspore", name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "ops", version: "2.0"})
+merge (m1) -[: subClassOfClass {name: "ops"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "prod", full_name: "mindspore.ops.prod", version: "2.0"});
+match
+ (m3: module {framework: "mindspore", name: "ops", version: "2.0"}),
+ (m4: operator {framework: "mindspore", name: "prod", full_name: "mindspore.ops.prod", version: "2.0"})
+merge (m3) -[: operatorOfClass {name: "prod"}]-> (m4);
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.prod", parameter_order: 1, name: "input", dtype_num: 1, dtype: "Tensor[Number]", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.prod", dtype_order: 1, parameter_order: 1, name: "input_1", dtype : "Tensor[Number]", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.prod", parameter_order: 2, name: "axis", dtype_num: 1, dtype: "Union[int, tuple(int), list(int)]", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.prod", dtype_order: 1, parameter_order: 2, name: "axis_1", dtype : "Union[int, tuple(int), list(int)]", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.ops.prod", parameter_order: 3, name: "keep_dims", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.ops.prod", dtype_order: 1, parameter_order: 3, name: "keep_dims_1", dtype : "bool", default : "False"});
+merge (: return {framework: "mindspore", version: "2.0", operator: "mindspore.ops.prod", return_order: 1, name: "return", dtype: 1});
+merge (: childReturn {framework: "mindspore", version: "2.0", operator: "mindspore.ops.prod", dtype_order: 1, return_order: 1, name: "return_1", dtype: "Tensor"});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.prod", version: "2.0"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.ops.prod' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.prod", version: "2.0"}),
+ (n11: input)
+where n11.operator = 'mindspore.ops.prod' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: inputOfOperator {input_order: n11.input_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.ops.prod", version: "2.0"}),
+ (n11: return)
+where n11.operator = 'mindspore.ops.prod' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "2.0"}),
+ (n11: childParameter {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.ops.prod' and m11.operator='mindspore.ops.prod' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: input {framework: "mindspore", version: "2.0"}),
+ (n11: childInput {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.ops.prod' and m11.operator='mindspore.ops.prod' and n11.input_order=m11.input_order
+merge (m11) -[: oneOfInput {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "2.0"}),
+ (n11: childReturn {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.ops.prod' and m11.operator='mindspore.ops.prod' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

@@ -1,0 +1,21 @@
+match
+ (m1: operator {full_name: "torchvision.transforms.RandomResizedCrop", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.dataset.vision.c_transforms.RandomResizedCrop", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torchvision.transforms.RandomResizedCrop", name: "size", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.dataset.vision.c_transforms.RandomResizedCrop", name: "size", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.transforms.RandomResizedCrop", operator_name_second: "mindspore.dataset.vision.c_transforms.RandomResizedCrop", parameter_name_first : "size", parameter_name_second : "size"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torchvision.transforms.RandomResizedCrop", name: "scale", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.dataset.vision.c_transforms.RandomResizedCrop", name: "scale", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.transforms.RandomResizedCrop", operator_name_second: "mindspore.dataset.vision.c_transforms.RandomResizedCrop", parameter_name_first : "scale", parameter_name_second : "scale"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torchvision.transforms.RandomResizedCrop", name: "ratio", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.dataset.vision.c_transforms.RandomResizedCrop", name: "ratio", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.transforms.RandomResizedCrop", operator_name_second: "mindspore.dataset.vision.c_transforms.RandomResizedCrop", parameter_name_first : "ratio", parameter_name_second : "ratio"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torchvision.transforms.RandomResizedCrop", name: "interpolation", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.dataset.vision.c_transforms.RandomResizedCrop", name: "interpolation", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.transforms.RandomResizedCrop", operator_name_second: "mindspore.dataset.vision.c_transforms.RandomResizedCrop", parameter_name_first : "interpolation", parameter_name_second : "interpolation"}]-> (m2);

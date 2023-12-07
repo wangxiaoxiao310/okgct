@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torchvision.transforms.GaussianBlur", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.dataset.vision.GaussianBlur", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torchvision.transforms.GaussianBlur", name: "kernel_size", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.dataset.vision.GaussianBlur", name: "kernel_size", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.transforms.GaussianBlur", operator_name_second: "mindspore.dataset.vision.GaussianBlur", parameter_name_first : "kernel_size", parameter_name_second : "kernel_size"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torchvision.transforms.GaussianBlur", return_order: 1, version: "1.8.1"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.dataset.vision.GaussianBlur", return_order: 1, version: "2.0"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torchvision.transforms.GaussianBlur", operator_name_second: "mindspore.dataset.vision.GaussianBlur", return_order_first : 1, return_order_second : 1}]-> (m2);

@@ -1,0 +1,9 @@
+match
+ (m1: operator {full_name: "torch.utils.data.SubsetRandomSampler.subsetRandomSampler", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.dataset.SubsetRandomSampler.subsetRandomSampler", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: return {framework: "pytorch", operator: "torch.utils.data.SubsetRandomSampler.subsetRandomSampler", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.dataset.SubsetRandomSampler.subsetRandomSampler", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.utils.data.SubsetRandomSampler.subsetRandomSampler", operator_name_second: "mindspore.dataset.SubsetRandomSampler.subsetRandomSampler", return_order_first : 1, return_order_second : 1}]-> (m2);

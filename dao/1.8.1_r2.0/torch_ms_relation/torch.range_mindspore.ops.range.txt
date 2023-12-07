@@ -1,0 +1,21 @@
+match
+ (m1: operator {full_name: "torch.range", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.ops.range", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.range", name: "start", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.range", name: "start", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.range", operator_name_second: "mindspore.ops.range", parameter_name_first : "start", parameter_name_second : "start"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.range", name: "end", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.range", name: "end", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.range", operator_name_second: "mindspore.ops.range", parameter_name_first : "end", parameter_name_second : "end"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.range", name: "step", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.ops.range", name: "step", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.range", operator_name_second: "mindspore.ops.range", parameter_name_first : "step", parameter_name_second : "step"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.range", return_order: 1, version: "1.8.1"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.ops.range", return_order: 1, version: "2.0"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.range", operator_name_second: "mindspore.ops.range", return_order_first : 1, return_order_second : 1}]-> (m2);

@@ -1,0 +1,106 @@
+merge (: framework {name: "mindspore", version: "2.0"});
+merge (: module {framework: "mindspore", name: "mindspore", version: "2.0"});
+match
+ (m1: framework {name: "mindspore", version: "2.0"}),
+ (m2: module {framework: "mindspore", name: "mindspore", version: "2.0"})
+merge (m1) -[: classOfFramework {name: "mindspore"}]-> (m2);
+merge (: operator {framework: "mindspore", name: "set_context", full_name: "mindspore.set_context", version: "2.0"});
+match
+ (m3: module {framework: "mindspore", name: "mindspore", version: "2.0"}),
+ (m4: operator {framework: "mindspore", name: "set_context", full_name: "mindspore.set_context", version: "2.0"})
+merge (m3) -[: operatorOfClass {name: "set_context"}]-> (m4);
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 1, name: "device_id", dtype_num: 1, dtype: "int", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 1, name: "device_id_1", dtype : "int", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 2, name: "device_target", dtype_num: 1, dtype: "str", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 2, name: "device_target_1", dtype : "str", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 3, name: "max_device_memory", dtype_num: 1, dtype: "str", optional: "False", default: "1024GB"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 3, name: "max_device_memory_1", dtype : "str", default : "1024GB"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 4, name: "variable_memory_max_size", dtype_num: 1, dtype: "str", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 4, name: "variable_memory_max_size_1", dtype : "str", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 5, name: "mempool_block_size", dtype_num: 1, dtype: "str", optional: "False", default: "1GB"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 5, name: "mempool_block_size_1", dtype : "str", default : "1GB"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 6, name: "op_timeout", dtype_num: 1, dtype: "int", optional: "False", default: "1900"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 6, name: "op_timeout_1", dtype : "int", default : "1900"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 7, name: "save_graphs", dtype_num: 1, dtype: "bool 或 int", optional: "False", default: "0"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 7, name: "save_graphs_1", dtype : "bool 或 int", default : "0"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 8, name: "save_graphs_path", dtype_num: 1, dtype: "str", optional: "False", default: "."});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 8, name: "save_graphs_path_1", dtype : "str", default : "."});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 9, name: "enable_dump", dtype_num: 1, dtype: "bool", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 9, name: "enable_dump_1", dtype : "bool", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 10, name: "save_dump_path", dtype_num: 1, dtype: "str", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 10, name: "save_dump_path_1", dtype : "str", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 11, name: "deterministic", dtype_num: 1, dtype: "str", optional: "False", default: "OFF"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 11, name: "deterministic_1", dtype : "str", default : "OFF"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 12, name: "print_file_path", dtype_num: 1, dtype: "str", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 12, name: "print_file_path_1", dtype : "str", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 13, name: "env_config_path", dtype_num: 1, dtype: "str", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 13, name: "env_config_path_1", dtype : "str", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 14, name: "precompile_only", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 14, name: "precompile_only_1", dtype : "bool", default : "False"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 15, name: "reserve_class_name_in_scope", dtype_num: 1, dtype: "bool", optional: "False", default: "True"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 15, name: "reserve_class_name_in_scope_1", dtype : "bool", default : "True"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 16, name: "pynative_synchronize", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 16, name: "pynative_synchronize_1", dtype : "bool", default : "False"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 17, name: "mode", dtype_num: 1, dtype: "int", optional: "False", default: "PYNATIVE_MODE"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 17, name: "mode_1", dtype : "int", default : "PYNATIVE_MODE"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 18, name: "enable_graph_kernel", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 18, name: "enable_graph_kernel_1", dtype : "bool", default : "False"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 19, name: "graph_kernel_flags", dtype_num: 1, dtype: "str", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 19, name: "graph_kernel_flags_1", dtype : "str", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 20, name: "enable_reduce_precision", dtype_num: 1, dtype: "bool", optional: "False", default: "True"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 20, name: "enable_reduce_precision_1", dtype : "bool", default : "True"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 21, name: "check_bprop", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 21, name: "check_bprop_1", dtype : "bool", default : "False"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 22, name: "max_call_depth", dtype_num: 1, dtype: "int", optional: "False", default: "1000"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 22, name: "max_call_depth_1", dtype : "int", default : "1000"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 23, name: "grad_for_scalar", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 23, name: "grad_for_scalar_1", dtype : "bool", default : "False"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 24, name: "enable_compile_cache", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 24, name: "enable_compile_cache_1", dtype : "bool", default : "False"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 25, name: "compile_cache_path", dtype_num: 1, dtype: "str", optional: "False", default: "."});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 25, name: "compile_cache_path_1", dtype : "str", default : "."});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 26, name: "inter_op_parallel_num", dtype_num: 1, dtype: "int", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 26, name: "inter_op_parallel_num_1", dtype : "int", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 27, name: "runtime_num_threads", dtype_num: 1, dtype: "int", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 27, name: "runtime_num_threads_1", dtype : "int", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 28, name: "disable_format_transform", dtype_num: 1, dtype: "bool", optional: "False", default: "False"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 28, name: "disable_format_transform_1", dtype : "bool", default : "False"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 29, name: "support_binary", dtype_num: 1, dtype: "bool", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 29, name: "support_binary_1", dtype : "bool", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 30, name: "memory_optimize_level", dtype_num: 1, dtype: "str", optional: "False", default: "O0"});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 30, name: "memory_optimize_level_1", dtype : "str", default : "O0"});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 31, name: "memory_offload", dtype_num: 1, dtype: "str", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 31, name: "memory_offload_1", dtype : "str", default : ""});
+merge (: parameter {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", parameter_order: 32, name: "ascend_config", dtype_num: 1, dtype: "dict", optional: "False", default: ""});
+merge (: childParameter  { framework: "mindspore", version: "2.0", operator: "mindspore.set_context", dtype_order: 1, parameter_order: 32, name: "ascend_config_1", dtype : "dict", default : ""});
+merge (: return {framework: "mindspore", version: "2.0", operator: "mindspore.set_context", return_order: 1, name: "return", dtype: 0});
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.set_context", version: "2.0"}),
+ (n11: parameter)
+where n11.operator = 'mindspore.set_context' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.set_context", version: "2.0"}),
+ (n11: input)
+where n11.operator = 'mindspore.set_context' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: inputOfOperator {input_order: n11.input_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "mindspore", full_name: "mindspore.set_context", version: "2.0"}),
+ (n11: return)
+where n11.operator = 'mindspore.set_context' and n11.framework = 'mindspore' and n11.version = '2.0'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "mindspore", version: "2.0"}),
+ (n11: childParameter {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.set_context' and m11.operator='mindspore.set_context' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: input {framework: "mindspore", version: "2.0"}),
+ (n11: childInput {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.set_context' and m11.operator='mindspore.set_context' and n11.input_order=m11.input_order
+merge (m11) -[: oneOfInput {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "mindspore", version: "2.0"}),
+ (n11: childReturn {framework: "mindspore", version: "2.0"})
+where n11.operator = 'mindspore.set_context' and m11.operator='mindspore.set_context' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

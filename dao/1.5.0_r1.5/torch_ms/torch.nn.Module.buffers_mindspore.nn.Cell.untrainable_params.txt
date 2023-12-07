@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torch.nn.Module.buffers", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.nn.Cell.untrainable_params", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.Module.buffers", name: "recurse", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.nn.Cell.untrainable_params", name: "recurse", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Module.buffers", operator_name_second: "mindspore.nn.Cell.untrainable_params", parameter_name_first : "recurse", parameter_name_second : "recurse"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.nn.Module.buffers", return_order: 1, version: "1.5.0"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.nn.Cell.untrainable_params", return_order: 1, version: "1.5"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.Module.buffers", operator_name_second: "mindspore.nn.Cell.untrainable_params", return_order_first : 1, return_order_second : 1}]-> (m2);

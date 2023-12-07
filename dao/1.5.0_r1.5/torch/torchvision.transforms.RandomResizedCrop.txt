@@ -1,0 +1,45 @@
+merge (: framework {name: "pytorch", version: "1.5.0"});
+merge (: module {framework: "pytorch", name: "torchvision", version: "1.5.0"});
+match
+ (m1: framework {name: "pytorch", version: "1.5.0"}),
+ (m2: module {framework: "pytorch", name: "torchvision", version: "1.5.0"})
+merge (m1) -[: classOfFramework {name: "torchvision"}]-> (m2);
+merge (: module {framework: "pytorch", name: "transforms", version: "1.5.0"});
+match
+ (m1: module {framework: "pytorch", name: "torchvision", version: "1.5.0"}),
+ (m2: module {framework: "pytorch", name: "transforms", version: "1.5.0"})
+merge (m1) -[: subClassOfClass {name: "transforms"}]-> (m2);
+merge (: operator {framework: "pytorch", name: "RandomResizedCrop", full_name: "torchvision.transforms.RandomResizedCrop", version: "1.5.0"});
+match
+ (m3: module {framework: "pytorch", name: "transforms", version: "1.5.0"}),
+ (m4: operator {framework: "pytorch", name: "RandomResizedCrop", full_name: "torchvision.transforms.RandomResizedCrop", version: "1.5.0"})
+merge (m3) -[: operatorOfClass {name: "RandomResizedCrop"}]-> (m4);
+merge (: parameter {framework: "pytorch", version: "1.5.0", operator: "torchvision.transforms.RandomResizedCrop", parameter_order: 1, name: "size", dtype_num: 2, dtype: "int", optional: "False", default: ""});
+merge (: childParameter  { framework: "pytorch", version: "1.5.0", operator: "torchvision.transforms.RandomResizedCrop", dtype_order: 1, parameter_order: 1, name: "size_1", dtype : "int", default : ""});
+merge (: childParameter  { framework: "pytorch", version: "1.5.0", operator: "torchvision.transforms.RandomResizedCrop", dtype_order: 2, parameter_order: 1, name: "size_2", dtype : "sequence", default : ""});
+merge (: parameter {framework: "pytorch", version: "1.5.0", operator: "torchvision.transforms.RandomResizedCrop", parameter_order: 2, name: "scale", dtype_num: 1, dtype: "tuple of python:float", optional: "True", default: "(0.08, 1.0)"});
+merge (: childParameter  { framework: "pytorch", version: "1.5.0", operator: "torchvision.transforms.RandomResizedCrop", dtype_order: 1, parameter_order: 2, name: "scale_1", dtype : "tuple of python:float", default : "(0.08, 1.0)"});
+merge (: parameter {framework: "pytorch", version: "1.5.0", operator: "torchvision.transforms.RandomResizedCrop", parameter_order: 3, name: "ratio", dtype_num: 1, dtype: "tuple of python:float", optional: "True", default: "(0.75, 1.3333333333333333)"});
+merge (: childParameter  { framework: "pytorch", version: "1.5.0", operator: "torchvision.transforms.RandomResizedCrop", dtype_order: 1, parameter_order: 3, name: "ratio_1", dtype : "tuple of python:float", default : "(0.75, 1.3333333333333333)"});
+merge (: parameter {framework: "pytorch", version: "1.5.0", operator: "torchvision.transforms.RandomResizedCrop", parameter_order: 4, name: "interpolation", dtype_num: 1, dtype: "InterpolationMode", optional: "True", default: "InterpolationMode.BILINEAR"});
+merge (: childParameter  { framework: "pytorch", version: "1.5.0", operator: "torchvision.transforms.RandomResizedCrop", dtype_order: 1, parameter_order: 4, name: "interpolation_1", dtype : "InterpolationMode", default : "InterpolationMode.BILINEAR"});
+match
+ (m11: operator {framework: "pytorch", full_name: "torchvision.transforms.RandomResizedCrop", version: "1.5.0"}),
+ (n11: parameter)
+where n11.operator = 'torchvision.transforms.RandomResizedCrop' and n11.framework = 'pytorch' and n11.version = '1.5.0'
+merge (m11) -[: parameterOfOperator {parameter_order: n11.parameter_order, name: n11.name}] -> (n11);
+match
+ (m11: operator {framework: "pytorch", full_name: "torchvision.transforms.RandomResizedCrop", version: "1.5.0"}),
+ (n11: return)
+where n11.operator = 'torchvision.transforms.RandomResizedCrop' and n11.framework = 'pytorch' and n11.version = '1.5.0'
+merge (m11) -[: returnOfOperator {return_order: n11.return_order, name: n11.name}] -> (n11);
+match
+ (m11: parameter {framework: "pytorch", version: "1.5.0"}),
+ (n11: childParameter {framework: "pytorch", version: "1.5.0"})
+where n11.operator = 'torchvision.transforms.RandomResizedCrop' and m11.operator='torchvision.transforms.RandomResizedCrop' and n11.parameter_order=m11.parameter_order
+merge (m11) -[: oneOfParameter {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);
+match
+ (m11: return {framework: "pytorch", version: "1.5.0"}),
+ (n11: childReturn {framework: "pytorch", version: "1.5.0"})
+where n11.operator = 'torchvision.transforms.RandomResizedCrop' and m11.operator='torchvision.transforms.RandomResizedCrop' and n11.return_order=m11.return_order
+merge (m11) -[: oneOfReturn {dtype_order: n11.dtype_order, dtype: n11.dtype}] -> (n11);

@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torch.utils.data.WeightedRandomSampler", version: "1.8.1"}),
+ (m2: operator {full_name: "mindspore.dataset.WeightedRandomSampler", version: "2.0"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.utils.data.WeightedRandomSampler", name: "replacement", version: "1.8.1"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.dataset.WeightedRandomSampler", name: "replacement", version: "2.0"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.utils.data.WeightedRandomSampler", operator_name_second: "mindspore.dataset.WeightedRandomSampler", parameter_name_first : "replacement", parameter_name_second : "replacement"}]-> (m2);
+match
+ (m1: return {framework: "pytorch", operator: "torch.utils.data.WeightedRandomSampler", return_order: 1, version: "1.8.1"}),
+ (m2: return {framework: "mindspore", operator: "mindspore.dataset.WeightedRandomSampler", return_order: 1, version: "2.0"})
+merge (m1) -[: equivalentReturn { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.utils.data.WeightedRandomSampler", operator_name_second: "mindspore.dataset.WeightedRandomSampler", return_order_first : 1, return_order_second : 1}]-> (m2);

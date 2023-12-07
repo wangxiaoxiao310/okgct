@@ -1,0 +1,17 @@
+match
+ (m1: operator {full_name: "torch.nn.init.kaiming_normal", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.common.initializer.HeNormal", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "true"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "true"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.init.kaiming_normal", name: "a", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.common.initializer.HeNormal", name: "negative_slope", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.init.kaiming_normal", operator_name_second: "mindspore.common.initializer.HeNormal", parameter_name_first : "a", parameter_name_second : "negative_slope"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.init.kaiming_normal", name: "mode", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.common.initializer.HeNormal", name: "mode", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.init.kaiming_normal", operator_name_second: "mindspore.common.initializer.HeNormal", parameter_name_first : "mode", parameter_name_second : "mode"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.nn.init.kaiming_normal", name: "nonlinearity", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.common.initializer.HeNormal", name: "nonlinearity", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.nn.init.kaiming_normal", operator_name_second: "mindspore.common.initializer.HeNormal", parameter_name_first : "nonlinearity", parameter_name_second : "nonlinearity"}]-> (m2);

@@ -1,0 +1,13 @@
+match
+ (m1: operator {full_name: "torch.tensor", version: "1.5.0"}),
+ (m2: operator {full_name: "mindspore.Tensor", version: "1.5"})
+merge (m1) -[: equivalentOperator {framework_name: "mindspore", type_judgement: "false"}]-> (m2) UNION
+merge (m2) -[: equivalentOperator {framework_name: "pytorch", typeJudgement: "false"}]-> (m1);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.tensor", name: "data", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.Tensor", name: "input_data", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.tensor", operator_name_second: "mindspore.Tensor", parameter_name_first : "data", parameter_name_second : "input_data"}]-> (m2);
+match
+ (m1: parameter {framework: "pytorch", operator: "torch.tensor", name: "dtype", version: "1.5.0"}),
+ (m2: parameter {framework: "mindspore", operator: "mindspore.Tensor", name: "dtype", version: "1.5"})
+merge (m1) -[: equivalentParameter { framework_name_first: "pytorch", framework_name_second: "mindspore", operator_name_first: "torch.tensor", operator_name_second: "mindspore.Tensor", parameter_name_first : "dtype", parameter_name_second : "dtype"}]-> (m2);
